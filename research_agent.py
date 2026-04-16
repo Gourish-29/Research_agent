@@ -1,59 +1,76 @@
-# Import the required libraries
 import streamlit as st
-from agno.agent import Agent
-from agno.run.agent import RunOutput
-from agno.models.openai import OpenAIChat
-from agno.team import Team
-from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.tools.hackernews import HackerNewsTools
 import os
+from openai import OpenAI
+from duckduckgo_search import DDGS
+import requests
 
-# Set up the Streamlit app
+# --- Setup ---
 st.title("Multi-Agent AI Researcher 🔍🤖")
-st.caption("This app allows you to research top stories and users on HackerNews and write blogs, reports and social posts.")
+st.caption("Research HackerNews and generate summaries using AI")
 
-# Get OpenAI API key from user
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-os.environ["OPENAI_API_KEY"] = openai_api_key
+# Secure API key (no manual input)
+api_key = os.getenv("OPENAI_API_KEY") or st.secrets["OPENAI_API_KEY"]
+client = OpenAI(api_key=api_key)
 
-if openai_api_key:
-    hn_researcher = Agent(
-        name="HackerNews Researcher",
-        model=OpenAIChat(id="gpt-4o-mini"),
-        role="Gets top stories from hackernews.",
-        tools=[HackerNewsTools()],
+# --- Functions ---
+
+# Get top HackerNews stories
+def get_hn_stories(query):
+    url = "https://hn.algolia.com/api/v1/search"
+    params = {"query": query, "tags": "story", "hitsPerPage": 5}
+    res = requests.get(url, params=params).json()
+    
+    stories = []
+    for item in res["hits"]:
+        stories.append({
+            "title": item["title"],
+            "url": item.get("url", ""),
+        })
+    return stories
+
+
+# Web search
+def web_search(query):
+    results = []
+    with DDGS() as ddgs:
+        for r in ddgs.text(query, max_results=5):
+            results.append(r["href"])
+    return results
+
+
+# Generate summary using OpenAI
+def generate_summary(query, stories, links):
+    content = f"""
+    Query: {query}
+
+    HackerNews Stories:
+    {stories}
+
+    Extra Links:
+    {links}
+
+    Write a structured article with:
+    - Title
+    - Summary
+    - Key Insights
+    - References
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": content}],
     )
 
-    web_searcher = Agent(
-        name="Web Searcher",
-        model=OpenAIChat(id="gpt-4o-mini"),
-        role="Searches the web for information on a topic",
-        tools=[DuckDuckGoTools()],
-        add_datetime_to_context=True,
-    )
+    return response.choices[0].message.content
 
-  
 
-    hackernews_team = Team(
-        name="HackerNews Team",
-        model=OpenAIChat(id="gpt-4o-mini"),
-        members=[hn_researcher, web_searcher],
-        instructions=[
-            "First, search hackernews for what the user is asking about.",
-           
-            "Important: you must provide the article reader with the links to read.",
-            "Then, ask the web searcher to search for each story to get more information.",
-            "Finally, provide a thoughtful and engaging summary.",
-        ],
-        markdown=True,
-        debug_mode=True,
-        show_members_responses=True,
-    )
+# --- UI ---
+query = st.text_input("Enter your research query")
 
-    # Input field for the report query
-    query = st.text_input("Enter your report query")
+if query:
+    with st.spinner("Researching..."):
+        stories = get_hn_stories(query)
+        links = web_search(query)
+        result = generate_summary(query, stories, links)
 
-    if query:
-        # Get the response from the assistant
-        response: RunOutput = hackernews_team.run(query, stream=False)
-        st.write(response.content)
+        st.markdown(result)
