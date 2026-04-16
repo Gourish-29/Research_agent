@@ -1,6 +1,9 @@
-streamlit
-openai
+streamlit==1.32.0
+openai==1.30.1
 agno
 ddgs
-newspaper4k
 duckduckgo-search
+newspaper4k
+lxml[html_clean]
+lxml
+lxml_html_clean
