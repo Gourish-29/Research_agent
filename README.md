@@ -1,51 +1,33 @@
-## 📰 Multi-Agent AI Researcher
+# 📰 Multi-Agent AI Researcher
 
-### 🎓 FREE Step-by-Step Tutorial 
-**👉 [Click here to follow our complete step-by-step tutorial](https://www.theunwindai.com/p/build-a-multi-agent-llm-app-with-gpt-4o) and learn how to build this from scratch with detailed code walkthroughs, explanations, and best practices.**
+## 🎓 Step-by-Step Tutorial  
+👉 Follow this guide to build a similar project from scratch:  
+https://www.theunwindai.com/p/build-a-multi-agent-llm-app-with-gpt-4o  
 
-This Streamlit app empowers you to research top stories and users on HackerNews using a team of AI assistants with GPT-4o. 
+---
 
-### Features
-- Research top stories and users on HackerNews
-- Utilize a team of AI assistants specialized in story and user research
-- Generate blog posts, reports, and social media content based on your research queries
+## 🚀 Overview  
 
-### How to get Started?
+This is a Streamlit-based AI application that uses a **multi-agent system** to research and analyze top stories and users from HackerNews.  
 
-1. Clone the GitHub repository
+It combines multiple specialized AI agents to gather, process, and summarize information into structured outputs like articles, reports, and social media content.
+
+---
+
+## ✨ Features  
+
+- 🔍 Research top stories and users from HackerNews  
+- 🤖 Multi-agent collaboration  
+- 🌐 Web search integration for additional insights  
+- 📄 Generate structured outputs (articles, summaries, reports)  
+- ⚡ Interactive Streamlit interface  
+
+---
+
+## 🛠️ Getting Started  
+
+### 1. Clone the Repository  
 
 ```bash
-git clone https://github.com/Shubhamsaboo/awesome-llm-apps.git
-cd advanced_ai_agents/multi_agent_apps/multi_agent_researcher
-```
-2. Install the required dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-3. Get your OpenAI API Key
-
-- Sign up for an [OpenAI account](https://platform.openai.com/) (or the LLM provider of your choice) and obtain your API key.
-
-4. Run the Streamlit App
-```bash
-streamlit run research_agent.py
-```
-
-### How it works?
-
-- Upon running the app, you will be prompted to enter your OpenAI API key. This key is used to authenticate and access the OpenAI language models.
-- Once you provide a valid API key, three specialized AI agents are created:
-    - **HackerNews Researcher**: Specializes in getting top stories from HackerNews using the HackerNews API.
-    - **Web Searcher**: Searches the web for additional information on topics using DuckDuckGo search.
-    - **Article Reader**: Reads and extracts content from article URLs using newspaper4k tools.
-
-- These agents work together as a coordinated team under the **HackerNews Team** which orchestrates the research process.
-- Enter your research query in the provided text input field. This could be a topic, keyword, or specific question related to HackerNews stories or users.
-- The HackerNews Team follows a structured workflow:
-    1. First searches HackerNews for relevant stories based on your query
-    2. Uses the Article Reader to extract detailed content from the story URLs
-    3. Leverages the Web Searcher to gather additional context and information
-    4. Finally provides a thoughtful and engaging summary with title, summary, and reference links
-- The generated content is structured as an Article with a title, summary, and reference links for easy review and use.
-
+git clone https://github.com/Gourish-29/Research_agent.git
+cd Research_agent
