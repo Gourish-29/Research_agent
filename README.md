@@ -23,15 +23,6 @@ It combines multiple specialized AI agents to gather, process, and summarize inf
 - ⚡ Interactive Streamlit interface  
 
 ---
-
-## 🛠️ Getting Started  
-
-### 1. Clone the Repository  
-
-```bash
-git clone https://github.com/Gourish-29/Research_agent.git
-cd Research_agent
-
 ## ⚙️ How It Works  
 
 - Enter your API key when prompted  
@@ -70,3 +61,11 @@ The app generates:
 - Blog/content generation  
 - Learning multi-agent AI systems  
 - Quick topic analysis  
+
+## 🛠️ Getting Started  
+
+### 1. Clone the Repository  
+
+```bash
+git clone https://github.com/Gourish-29/Research_agent.git
+cd Research_agent
