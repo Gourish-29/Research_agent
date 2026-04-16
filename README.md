@@ -31,3 +31,42 @@ It combines multiple specialized AI agents to gather, process, and summarize inf
 ```bash
 git clone https://github.com/Gourish-29/Research_agent.git
 cd Research_agent
+
+## ⚙️ How It Works  
+
+- Enter your API key when prompted  
+- The system initializes multiple AI agents  
+
+### 🤖 Agents  
+
+- **HackerNews Researcher** → Fetches top stories  
+- **Web Searcher** → Gathers additional context  
+- **Article Reader** → Extracts content from URLs  
+
+---
+
+## 🧠 Workflow  
+
+1. 🔎 Search HackerNews  
+2. 📖 Extract article content  
+3. 🌐 Perform web search  
+4. ✍️ Generate structured response  
+
+---
+
+## 📦 Output  
+
+The app generates:  
+
+- 📰 Title  
+- 🧾 Summary  
+- 🔗 Reference Links  
+
+---
+
+## 💡 Use Cases  
+
+- Tech research  
+- Blog/content generation  
+- Learning multi-agent AI systems  
+- Quick topic analysis  
